@@ -1,4 +1,3 @@
-// app/src/main/java/com/neecs/todoappfragments/fragments/CompletedTasksFragment.kt
 package com.neecs.todoappfragments.fragments
 
 import android.os.Bundle
@@ -10,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.neecs.todoappfragments.R
-import com.neecs.todoappfragments.adapter.TodoAdapter
+import com.neecs.todoappfragments.adapter.CompletedTasksAdapter
 import com.neecs.todoappfragments.viewmodel.TodoViewModel
 
 class CompletedTasksFragment : Fragment() {
@@ -21,13 +20,13 @@ class CompletedTasksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_completed_tasks, container, false)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewCompletedTasks)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = TodoAdapter { item -> viewModel.markItemAsCompleted(item) }
+        val adapter = CompletedTasksAdapter()
         recyclerView.adapter = adapter
 
-        viewModel.todoList.observe(viewLifecycleOwner) { todoList ->
-            adapter.submitList(viewModel.getCompletedItems())
+        viewModel.completedTasks.observe(viewLifecycleOwner) { completedTasks ->
+            adapter.submitList(completedTasks)
         }
 
         return view
