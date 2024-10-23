@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TODOAppFragments</string>
+    <string name="app_name">Tu App de Tareas</string>
+    <string name="todo_list">Lista de Tareas</string>
+    <string name="completed_tasks">Tareas Completadas</string>
+    <string name="task_details">Detalles de la Tarea</string>
+    <string name="enter_task_title">Introduce el título de la tarea</string>
+    <string name="add_task">Añadir tarea</string>
+    <!-- Añade aquí todas las demás cadenas de texto que necesites traducir -->
 </resources>

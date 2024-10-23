@@ -3,13 +3,9 @@
     <item
         android:id="@+id/todoListFragment"
         android:icon="@drawable/ic_todo_list"
-        android:title="Todo List" />
+        android:title="@string/todo_list" />
     <item
         android:id="@+id/completedTasksFragment"
         android:icon="@drawable/ic_completed_tasks"
-        android:title="Completed Tasks" />
-    <item
-        android:id="@+id/taskDetailsFragment"
-        android:icon="@drawable/ic_task_details"
-        android:title="Task Details" />
+        android:title="@string/completed_tasks" />
 </menu>

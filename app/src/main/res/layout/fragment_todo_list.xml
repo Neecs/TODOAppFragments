@@ -9,13 +9,13 @@
         android:id="@+id/editTextTaskTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter task title" />
+        android:hint="Añade tu tarea" />
 
     <Button
         android:id="@+id/buttonAddTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Task" />
+        android:text="Añadir tarea" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
