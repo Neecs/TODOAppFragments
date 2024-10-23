@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.neecs.todoappfragments.R
@@ -44,6 +45,11 @@ class TodoListFragment : Fragment() {
                 viewModel.addTodoItem(newItem)
                 editTextTaskTitle.text.clear()
             }
+        }
+
+        val buttonViewCompletedTasks = view.findViewById<Button>(R.id.buttonViewCompletedTasks)
+        buttonViewCompletedTasks.setOnClickListener {
+            findNavController().navigate(R.id.action_todoListFragment_to_completedTasksFragment)
         }
 
         return view
