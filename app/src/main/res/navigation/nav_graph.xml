@@ -12,8 +12,12 @@
             android:id="@+id/action_todoListFragment_to_completedTasksFragment"
             app:destination="@id/completedTasksFragment" />
         <action
-            android:id="@+id/action_todoListFragment_to_taskDetailFragment"
-            app:destination="@id/taskDetailFragment" />
+            android:id="@+id/action_todoListFragment_to_taskDetailsFragment"
+            app:destination="@id/taskDetailsFragment">
+            <argument
+                android:name="taskId"
+                app:argType="integer" />
+        </action>
     </fragment>
 
     <fragment
@@ -22,7 +26,11 @@
         tools:layout="@layout/fragment_completed_tasks" />
 
     <fragment
-        android:id="@+id/taskDetailFragment"
-        android:name="com.neecs.todoappfragments.fragments.TaskDetailFragment"
-        tools:layout="@layout/fragment_task_detail" />
+        android:id="@+id/taskDetailsFragment"
+        android:name="com.neecs.todoappfragments.fragments.TaskDetailsFragment"
+        tools:layout="@layout/fragment_task_details" >
+        <argument
+            android:name="taskId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

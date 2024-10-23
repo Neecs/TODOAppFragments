@@ -1,18 +1,22 @@
-// app/src/main/java/com/neecs/todoappfragments/adapter/TodoAdapter.kt
 package com.neecs.todoappfragments.adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.neecs.todoappfragments.R
 import com.neecs.todoappfragments.viewmodel.TodoItem
 
-class TodoAdapter(private val onItemChecked: (TodoItem) -> Unit) : ListAdapter<TodoItem, TodoAdapter.TodoViewHolder>(TodoDiffCallback()) {
+class TodoAdapter(private val onItemChecked: (TodoItem) -> Unit) :
+    ListAdapter<TodoItem, TodoAdapter.TodoViewHolder>(
+        TodoViewHolder.TodoDiffCallback()
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_todo, parent, false)
@@ -24,7 +28,8 @@ class TodoAdapter(private val onItemChecked: (TodoItem) -> Unit) : ListAdapter<T
         holder.bind(item)
     }
 
-    class TodoViewHolder(itemView: View, private val onItemChecked: (TodoItem) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    class TodoViewHolder(itemView: View, private val onItemChecked: (TodoItem) -> Unit) :
+        RecyclerView.ViewHolder(itemView) {
         private val taskTextView: TextView = itemView.findViewById(R.id.taskTextView)
         private val checkBox: CheckBox = itemView.findViewById(R.id.checkBox)
 
@@ -36,16 +41,23 @@ class TodoAdapter(private val onItemChecked: (TodoItem) -> Unit) : ListAdapter<T
                     onItemChecked(item)
                 }
             }
+            itemView.setOnClickListener {
+                val action = R.id.action_todoListFragment_to_taskDetailsFragment
+                val bundle = Bundle().apply {
+                    putInt("taskId", item.id)
+                }
+                it.findNavController().navigate(action, bundle)
+            }
         }
-    }
 
-    class TodoDiffCallback : DiffUtil.ItemCallback<TodoItem>() {
-        override fun areItemsTheSame(oldItem: TodoItem, newItem: TodoItem): Boolean {
-            return oldItem.id == newItem.id
-        }
+        class TodoDiffCallback : DiffUtil.ItemCallback<TodoItem>() {
+            override fun areItemsTheSame(oldItem: TodoItem, newItem: TodoItem): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-        override fun areContentsTheSame(oldItem: TodoItem, newItem: TodoItem): Boolean {
-            return oldItem == newItem
+            override fun areContentsTheSame(oldItem: TodoItem, newItem: TodoItem): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 }

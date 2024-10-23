@@ -1,4 +1,3 @@
-// app/src/main/java/com/neecs/todoappfragments/viewmodel/TodoViewModel.kt
 package com.neecs.todoappfragments.viewmodel
 
 import androidx.lifecycle.LiveData
@@ -12,15 +11,15 @@ class TodoViewModel : ViewModel() {
     val todoList: LiveData<List<TodoItem>> get() = _todoList
 
     init {
-        _todoList.value = listOf()
+        _todoList.value = listOf() // Initialize with an empty list or some default values
+    }
+
+    fun getTaskById(taskId: Int): TodoItem? {
+        return _todoList.value?.find { it.id == taskId }
     }
 
     fun addTodoItem(item: TodoItem) {
-        _todoList.value = _todoList.value?.plus(item)
-    }
-
-    fun removeTodoItem(item: TodoItem) {
-        _todoList.value = _todoList.value?.minus(item)
+        _todoList.value = _todoList.value?.toMutableList()?.apply { add(item) }
     }
 
     fun markItemAsCompleted(item: TodoItem) {
@@ -30,6 +29,6 @@ class TodoViewModel : ViewModel() {
     }
 
     fun getCompletedItems(): List<TodoItem> {
-        return _todoList.value?.filter { it.isCompleted } ?: listOf()
+        return _todoList.value?.filter { it.isCompleted } ?: emptyList()
     }
 }
