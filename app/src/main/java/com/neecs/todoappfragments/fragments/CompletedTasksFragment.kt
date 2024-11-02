@@ -6,11 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.neecs.todoappfragments.R
 import com.neecs.todoappfragments.adapter.CompletedTasksAdapter
+import com.neecs.todoappfragments.db.AppDatabase
+import com.neecs.todoappfragments.entities.Task
 import com.neecs.todoappfragments.viewmodel.TodoViewModel
+import kotlinx.coroutines.launch
 
 class CompletedTasksFragment : Fragment() {
     private val viewModel: TodoViewModel by activityViewModels()
@@ -25,7 +29,13 @@ class CompletedTasksFragment : Fragment() {
         val adapter = CompletedTasksAdapter()
         recyclerView.adapter = adapter
 
-        viewModel.completedTasks.observe(viewLifecycleOwner) { completedTasks ->
+        // Obtener la base de datos
+        val database = AppDatabase.getDatabase(requireContext())
+        val taskDao = database.taskDao()
+
+        // Usar coroutine para obtener las tareas completadas desde la base de datos
+        lifecycleScope.launch {
+            val completedTasks: List<Task> = taskDao.getAllTasks().filter { it.isCompleted }
             adapter.submitList(completedTasks)
         }
 

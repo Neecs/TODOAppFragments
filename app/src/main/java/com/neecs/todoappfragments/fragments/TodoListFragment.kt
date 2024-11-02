@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.neecs.todoappfragments.R
 import com.neecs.todoappfragments.adapter.TodoAdapter
-import com.neecs.todoappfragments.viewmodel.TodoItem
+import com.neecs.todoappfragments.entities.Task
 import com.neecs.todoappfragments.viewmodel.TodoViewModel
 
 class TodoListFragment : Fragment() {
@@ -39,7 +39,7 @@ class TodoListFragment : Fragment() {
         buttonAddTask.setOnClickListener {
             val taskTitle = editTextTaskTitle.text.toString()
             if (taskTitle.isNotEmpty()) {
-                val newItem = TodoItem(id = viewModel.todoList.value?.size ?: 0, task = taskTitle, isCompleted = false)
+                val newItem = Task(title = taskTitle, description = "", isCompleted = false)
                 viewModel.addTodoItem(newItem)
                 editTextTaskTitle.text.clear()
             }
