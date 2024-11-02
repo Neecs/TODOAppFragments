@@ -25,7 +25,6 @@ class CompletedTasksAdapter : ListAdapter<Task, CompletedTasksAdapter.TaskViewHo
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(task: Task) {
             itemView.findViewById<TextView>(R.id.taskTextView).text = task.title
-            // Assuming you want to set the CheckBox state based on task completion
             itemView.findViewById<CheckBox>(R.id.checkBox).isChecked = task.isCompleted
         }
     }

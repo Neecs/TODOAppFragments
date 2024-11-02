@@ -1,6 +1,5 @@
 package com.neecs.todoappfragments.adapter
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.neecs.todoappfragments.R
+import com.neecs.todoappfragments.fragments.TodoListFragmentDirections
 import com.neecs.todoappfragments.viewmodel.TodoItem
 
 class TodoAdapter(private val onItemChecked: (TodoItem) -> Unit) :
@@ -42,11 +42,8 @@ class TodoAdapter(private val onItemChecked: (TodoItem) -> Unit) :
                 }
             }
             itemView.setOnClickListener {
-                val action = R.id.action_todoListFragment_to_taskDetailsFragment
-                val bundle = Bundle().apply {
-                    putInt("taskId", item.id)
-                }
-                it.findNavController().navigate(action, bundle)
+                val action = TodoListFragmentDirections.actionTodoListFragmentToCompletedTasksFragment(item.id)
+                it.findNavController().navigate(action)
             }
         }
 

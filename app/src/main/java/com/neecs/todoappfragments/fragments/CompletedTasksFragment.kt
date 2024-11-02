@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.neecs.todoappfragments.R
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 
 class CompletedTasksFragment : Fragment() {
     private val viewModel: TodoViewModel by activityViewModels()
+    private val args: CompletedTasksFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,10 @@ class CompletedTasksFragment : Fragment() {
             val completedTasks: List<Task> = taskDao.getAllTasks().filter { it.isCompleted }
             adapter.submitList(completedTasks)
         }
+
+        // Use the received argument (taskId) if needed
+        val taskId = args.taskId
+        // You can use taskId as needed in your fragment
 
         return view
     }

@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.neecs.todoappfragments.R
@@ -27,7 +28,11 @@ class TodoListFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_todo_list, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = TodoAdapter { item -> viewModel.markItemAsCompleted(item) }
+        val adapter = TodoAdapter { item ->
+            viewModel.markItemAsCompleted(item)
+            val action = TodoListFragmentDirections.actionTodoListFragmentToCompletedTasksFragment(item.id)
+            findNavController().navigate(action)
+        }
         recyclerView.adapter = adapter
 
         viewModel.todoList.observe(viewLifecycleOwner) { todoList ->
